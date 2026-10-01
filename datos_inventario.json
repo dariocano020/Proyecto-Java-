@@ -1,0 +1,101 @@
+{
+  "usuarios": {
+    "darioUser": {
+      "tipo": "Usuario",
+      "username": "darioUser",
+      "correo": "dariocano2005@gmail.com",
+      "password": "4321",
+      "nombre": "Dario Cliente"
+    },
+    "darioAdmin": {
+      "tipo": "UsuarioAdmin",
+      "username": "darioAdmin",
+      "correo": "dariocano2005@gmail.com",
+      "password": "1234",
+      "nombre": "Dario Administrador"
+    },
+    "manuel": {
+      "tipo": "Usuario",
+      "username": "manuel",
+      "correo": "dariocano2005@gmail.com",
+      "password": "1234",
+      "nombre": "manuel"
+    }
+  },
+  "productos": {
+    "P1": {
+      "peso": 1.2,
+      "tipo": "ProductoFisico",
+      "id": "P1",
+      "nombre": "Teclado Mecánico",
+      "precio": 60.5,
+      "stock": 9
+    },
+    "P2": {
+      "gigas": 4.5,
+      "tipo": "ProductoDigital",
+      "id": "P2",
+      "nombre": "Licencia Windows 11",
+      "precio": 15.0,
+      "stock": 50
+    },
+    "P3": {
+      "gigas": 10.0,
+      "tipo": "ProductoDigital",
+      "id": "P3",
+      "nombre": "Cargador",
+      "precio": 20.0,
+      "stock": 15
+    }
+  },
+  "historialPedidos": [
+    {
+      "idPedido": "PED-A696E1",
+      "fecha": "2026-09-30T16:49:38.8269719",
+      "usuario": {
+        "tipo": "Usuario",
+        "username": "manuel",
+        "correo": "dariocano2005@gmail.com",
+        "password": "1234",
+        "nombre": "manuel"
+      },
+      "lineas": [
+        {
+          "producto": {
+            "peso": 1.2,
+            "tipo": "ProductoFisico",
+            "id": "P1",
+            "nombre": "Teclado Mecánico",
+            "precio": 60.5,
+            "stock": 9
+          },
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "idPedido": "PED-3EF2CA",
+      "fecha": "2026-09-30T19:20:19.2282041",
+      "usuario": {
+        "tipo": "Usuario",
+        "username": "manuel",
+        "correo": "dariocano2005@gmail.com",
+        "password": "1234",
+        "nombre": "manuel"
+      },
+      "lineas": [
+        {
+          "producto": {
+            "gigas": 10.0,
+            "tipo": "ProductoDigital",
+            "id": "P3",
+            "nombre": "Cargador",
+            "precio": 20.0,
+            "stock": 15
+          },
+          "cantidad": 5
+        }
+      ]
+    }
+  ]
+}
