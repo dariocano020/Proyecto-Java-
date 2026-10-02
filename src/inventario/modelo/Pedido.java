@@ -13,8 +13,6 @@ public class Pedido implements Serializable {
     private LocalDateTime fecha;
     private Usuario usuario;
     private List<LineaPedido> lineas;
-
-    // Colores ANSI
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";
     private static final String YELLOW = "\u001B[33m";

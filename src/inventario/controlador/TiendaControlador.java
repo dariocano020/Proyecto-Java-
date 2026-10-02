@@ -56,7 +56,6 @@ vista.mostrarExito("Gracias por usar el sistema! Hasta pronto.");
         
         Usuario u = gestionDatos.autenticar(username, pass);
         if (u != null) {
-            // Flujo OTP estilo LonjaEvents
             int otp = ServicioOTP.generarOTP();
             ServicioOTP.enviarCorreoOTP(u.getCorreo(), otp);
             
@@ -173,7 +172,16 @@ vista.mostrarExito("Historial exportado a pedidos.csv");
 
     private void altaProducto() {
         String tipo = vista.pedirTexto("Tipo de producto (Fisico, D = Digital): ");
-        String id = vista.pedirTexto("ID: ");
+        int maxId = 0;
+        for (Producto prod : gestionDatos.listarProductos()) {
+            if (prod.getId().startsWith("P")) {
+                try {
+                    int num = Integer.parseInt(prod.getId().substring(1));
+                    if (num > maxId) maxId = num;
+                } catch(Exception e) {}
+            }
+        }
+        String id = "P" + (maxId + 1);
         String nombre = vista.pedirTexto("Nombre: ");
         double precio = vista.pedirDouble("Precio: ");
         int stock = vista.pedirEntero("Stock: ");
@@ -268,8 +276,6 @@ vista.mostrarExito("Producto retirado del carrito.");
         
         List<LineaPedido> lineas = new ArrayList<>();
         boolean errorStock = false;
-        
-        // Verificamos stock de nuevo por si acaso y lo descontamos
         for (Map.Entry<Producto, Integer> entrada : cont.entrySet()) {
             Producto p = entrada.getKey();
             int cant = entrada.getValue();
@@ -296,8 +302,6 @@ vista.mostrarExito("Producto retirado del carrito.");
 vista.mostrarExito("Compra realizada con exito! ID Pedido: " + idGen);
             nuevoPedido.imprimirFactura();
             inventario.utilidades.ServicioOTP.enviarFactura(nuevoPedido, usuarioLogueado.getCorreo());
-            
-            // Guardado automatico por si acaso
             inventario.utilidades.PersistenciaDatos.guardar(gestionDatos);
         }
     }

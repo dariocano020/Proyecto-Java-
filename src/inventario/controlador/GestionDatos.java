@@ -21,7 +21,6 @@ import java.io.Serializable;
 
 public class GestionDatos implements Serializable {
     private static final long serialVersionUID = 1L;
-    // La clave ahora es el username
     private Map<String, Usuario> usuarios;
     private Map<String, Producto> productos;
     private List<Pedido> historialPedidos;

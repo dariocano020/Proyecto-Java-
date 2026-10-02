@@ -16,7 +16,6 @@ public class UsuarioAdapter implements JsonDeserializer<Usuario> {
         if (tipo.equals("UsuarioAdmin")) {
             return context.deserialize(json, UsuarioAdmin.class);
         } else {
-            // Usamos un Gson nuevo para que no vuelva a llamar a este mismo Adapter y crear un bucle
             return new Gson().fromJson(json, Usuario.class);
         }
     }

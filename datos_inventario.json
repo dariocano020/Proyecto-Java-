@@ -46,6 +46,22 @@
       "nombre": "Cargador",
       "precio": 20.0,
       "stock": 15
+    },
+    "P4": {
+      "peso": 100.0,
+      "tipo": "ProductoFisico",
+      "id": "P4",
+      "nombre": "raton",
+      "precio": 20.0,
+      "stock": 45
+    },
+    "P5": {
+      "peso": 1.0,
+      "tipo": "ProductoFisico",
+      "id": "P5",
+      "nombre": "portatil",
+      "precio": 400.0,
+      "stock": 55
     }
   },
   "historialPedidos": [
