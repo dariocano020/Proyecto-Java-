@@ -1,22 +1,11 @@
 package inventario.controlador;
 
 import inventario.utilidades.*;
-
 import inventario.modelo.*;
-import inventario.vista.*;
-import inventario.modelo.Pedido;
-import inventario.modelo.Producto;
-import inventario.modelo.Usuario;
-import inventario.modelo.UsuarioAdmin;
-import inventario.modelo.ProductoFisico;
-import inventario.modelo.ProductoDigital;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import java.io.Serializable;
 
 public class GestionDatos implements Serializable {
@@ -29,10 +18,7 @@ public class GestionDatos implements Serializable {
         usuarios = new HashMap<>();
         productos = new HashMap<>();
         historialPedidos = new ArrayList<>();
-
     }
-
-
 
     public boolean registrarUsuario(Usuario u) {
         if (usuarios.containsKey(u.getUsername())) return false;
@@ -75,22 +61,38 @@ public class GestionDatos implements Serializable {
     }
 
     public String obtenerTopUsuario() {
-        return historialPedidos.stream()
-                .collect(Collectors.groupingBy(Pedido::getUsuario, Collectors.counting()))
-                .entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(e -> e.getKey().getNombre() + " (" + e.getValue() + " pedidos)")
-                .orElse("N/A");
+        if (historialPedidos.isEmpty()) return "N/A";
+        
+        Map<Usuario, Integer> conteo = new HashMap<>();
+        for (Pedido p : historialPedidos) {
+            Usuario u = p.getUsuario();
+            int contadorActual = 0;
+            if (conteo.containsKey(u)) {
+                contadorActual = conteo.get(u);
+            }
+            conteo.put(u, contadorActual + 1);
+        }
+        
+        Usuario topUsuario = null;
+        int maxPedidos = 0;
+        for (Usuario u : conteo.keySet()) {
+            int pedidos = conteo.get(u);
+            if (pedidos > maxPedidos) {
+                maxPedidos = pedidos;
+                topUsuario = u;
+            }
+        }
+        
+        if (topUsuario == null) return "N/A";
+        return topUsuario.getNombre() + " (" + maxPedidos + " pedidos)";
     }
 
     public double obtenerTicketMedio() {
-        return historialPedidos.stream()
-                .mapToDouble(Pedido::getTotal)
-                .average()
-                .orElse(0.0);
+        if (historialPedidos.isEmpty()) return 0.0;
+        double suma = 0;
+        for (Pedido p : historialPedidos) {
+            suma = suma + p.getTotal();
+        }
+        return suma / historialPedidos.size();
     }
 }
-
-
-
-

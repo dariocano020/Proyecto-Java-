@@ -1,7 +1,5 @@
 package inventario.utilidades;
 
-import inventario.utilidades.*;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import inventario.controlador.GestionDatos;
@@ -23,28 +21,18 @@ public class PersistenciaDatos {
                 .create();
     }
 
-    public static void guardar(GestionDatos datos) {
+    public static void guardar(GestionDatos datos) throws IOException {
         try (Writer writer = new FileWriter(ARCHIVO)) {
             getGson().toJson(datos, writer);
-        } catch (IOException e) {
-            System.out.println(" Error guardando JSON: " + e.getMessage());
         }
     }
 
-    public static GestionDatos cargar() {
-        File f = new File(ARCHIVO);
-        if (f.exists()) {
-            try (Reader reader = new FileReader(ARCHIVO)) {
-                return getGson().fromJson(reader, GestionDatos.class);
-            } catch (Exception e) {
-                System.out.println(" Error cargando JSON. Se iniciar desde cero: " + e.getMessage());
-            }
+    public static GestionDatos cargar() throws IOException {
+        File file = new File(ARCHIVO);
+        if (!file.exists()) return null;
+        
+        try (Reader reader = new FileReader(ARCHIVO)) {
+            return getGson().fromJson(reader, GestionDatos.class);
         }
-        return null;
     }
 }
-
-
-
-
-

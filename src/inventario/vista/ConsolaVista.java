@@ -98,4 +98,24 @@ public class ConsolaVista {
         System.out.println("| " + RESET + "6.   Cerrar sesion" + GREEN + "                                |");
         System.out.println("-------------------------------------------------------" + RESET);
     }
+    public void mostrarCargando(String msg) {
+        System.out.println(PURPLE + " [...] " + RESET + msg);
+    }
+
+    public void mostrarFactura(Pedido pedido) {
+        System.out.println(CYAN + "\n=======================================================");
+        System.out.println("=======================================================" + RESET);
+        System.out.println(BOLD + "  N Pedido: " + RESET + pedido.getIdPedido());
+        System.out.println(BOLD + "  Fecha:    " + RESET + pedido.getFecha().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+        System.out.println(BOLD + "  Cliente:  " + RESET + pedido.getUsuario().getNombre() + " (" + pedido.getUsuario().getCorreo() + ")");
+        System.out.println(CYAN + "-------------------------------------------------------" + RESET);
+        System.out.printf(BOLD + " %-5s | %-30s | %-10s \n" + RESET, "CANT", "PRODUCTO", "SUBTOTAL");
+        System.out.println(CYAN + "-------------------------------------------------------" + RESET);
+        for (LineaPedido lp : pedido.getLineas()) {
+            System.out.printf(" %-5d | %-30s | %-10.2f \n", lp.getCantidad(), lp.getProducto().getNombre(), lp.getSubtotal());
+        }
+        System.out.println(CYAN + "-------------------------------------------------------" + RESET);
+        System.out.printf(GREEN + BOLD + "  TOTAL A PAGAR: %33.2f \n" + RESET, pedido.getTotal());
+        System.out.println(CYAN + "=======================================================\n" + RESET);
+    }
 }

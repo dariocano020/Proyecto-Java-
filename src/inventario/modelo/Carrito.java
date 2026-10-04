@@ -1,9 +1,6 @@
 package inventario.modelo;
 
-import inventario.utilidades.*;
-
 import java.io.Serializable;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +12,11 @@ public class Carrito implements Serializable {
     }
 
     public void anadirProducto(Producto p, int cantidad) {
-        productos.put(p, productos.getOrDefault(p, 0) + cantidad);
+        int actual = 0;
+        if (productos.containsKey(p)) {
+            actual = productos.get(p);
+        }
+        productos.put(p, actual + cantidad);
     }
 
     public void quitarProducto(Producto p) {
@@ -32,13 +33,11 @@ public class Carrito implements Serializable {
 
     public double getTotal() {
         double total = 0;
-        for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
-            total += entry.getKey().getPrecio() * entry.getValue();
+        for (Producto p : productos.keySet()) {
+            double precio = p.getPrecio();
+            int cantidad = productos.get(p);
+            total = total + (precio * cantidad);
         }
         return total;
     }
 }
-
-
-
-
